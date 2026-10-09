@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presupuestos Técnicos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="toolbar">
+  <div class="toolbar__brand">
+    <span class="toolbar__mark" aria-hidden="true"></span>
+    <div>
+      <strong>Presupuestos Técnicos</strong>
+      <span class="toolbar__sub" id="saveStatus">Borrador guardado en este navegador</span>
+    </div>
+  </div>
+  <nav class="toolbar__actions" aria-label="Acciones">
+    <button type="button" class="btn btn--ghost" id="btnNew">Nuevo</button>
+    <button type="button" class="btn btn--ghost" id="btnSave">Guardar</button>
+    <button type="button" class="btn btn--ghost" id="btnList">Mis presupuestos</button>
+    <button type="button" class="btn btn--ghost" id="btnExport">Exportar</button>
+    <label class="btn btn--ghost" for="importFile">Importar</label>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+    <button type="button" class="btn btn--primary" id="btnPrint">Imprimir / PDF</button>
+  </nav>
+</header>
+
+<main class="workspace">
+  <!-- ============ EDITOR ============ -->
+  <aside class="editor" id="editor" aria-label="Editor del presupuesto">
+
+    <details class="panel" open>
+      <summary>Tu empresa</summary>
+      <div class="panel__body">
+        <div class="logo-drop" id="logoDrop">
+          <img id="logoPreview" alt="" hidden>
+          <div class="logo-drop__empty" id="logoEmpty">
+            <strong>Sube tu logo</strong>
+            <span>PNG, SVG o JPG · arrastra aquí o haz clic</span>
+          </div>
+          <input type="file" id="logoFile" accept="image/*">
+        </div>
+        <div class="row">
+          <label class="field field--grow">Tamaño del logo
+            <input type="range" id="logoHeight" min="28" max="110" step="2" data-bind="company.logoHeight">
+          </label>
+          <button type="button" class="btn btn--small btn--ghost" id="logoRemove">Quitar logo</button>
+        </div>
+        <label class="field">Razón social<input id="c_name" data-bind="company.name"></label>
+        <div class="grid2">
+          <label class="field">RUT<input id="c_rut" data-bind="company.rut" placeholder="76.123.456-7"></label>
+          <label class="field">Giro<input id="c_giro" data-bind="company.giro"></label>
+        </div>
+        <label class="field">Dirección<input id="c_address" data-bind="company.address"></label>
+        <div class="grid2">
+          <label class="field">Comuna / ciudad<input id="c_city" data-bind="company.city"></label>
+          <label class="field">Teléfono<input id="c_phone" data-bind="company.phone"></label>
+        </div>
+        <div class="grid2">
+          <label class="field">Email<input id="c_email" type="email" data-bind="company.email"></label>
+          <label class="field">Sitio web<input id="c_web" data-bind="company.web"></label>
+        </div>
+        <div class="row">
+          <label class="field field--color">Color de marca
+            <input type="color" id="c_accent" data-bind="company.accent">
+          </label>
+          <div class="swatches" id="swatches" aria-label="Colores sugeridos"></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>Cliente</summary>
+      <div class="panel__body">
+        <label class="field">Nombre o razón social<input id="cl_name" data-bind="client.name"></label>
+        <div class="grid2">
+          <label class="field">RUT<input id="cl_rut" data-bind="client.rut"></label>
+          <label class="field">Contacto<input id="cl_contact" data-bind="client.contact"></label>
+        </div>
+        <div class="grid2">
+          <label class="field">Email<input id="cl_email" type="email" data-bind="client.email"></label>
+          <label class="field">Teléfono<input id="cl_phone" data-bind="client.phone"></label>
+        </div>
+        <label class="field">Dirección<input id="cl_address" data-bind="client.address"></label>
+        <label class="field">Comuna / ciudad<input id="cl_city" data-bind="client.city"></label>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>Datos del presupuesto</summary>
+      <div class="panel__body">
+        <div class="grid2">
+          <label class="field">N° presupuesto<input id="q_number" data-bind="quote.number"></label>
+          <label class="field">Fecha de emisión<input id="q_date" type="date" data-bind="quote.date"></label>
+        </div>
+        <div class="grid2">
+          <label class="field">Validez (días)<input id="q_valid" type="number" min="1" data-bind="quote.validDays" data-type="number"></label>
+          <label class="field">Ejecutivo<input id="q_seller" data-bind="quote.seller"></label>
+        </div>
+        <label class="field">Proyecto / referencia<input id="q_ref" data-bind="quote.reference" placeholder="Ej: Estación de trabajo para render 3D"></label>
+        <div class="grid2">
+          <label class="field">Moneda
+            <select id="q_currency" data-bind="quote.currency">
+              <option value="CLP">Peso chileno (CLP)</option>
+              <option value="USD">Dólar (USD)</option>
+              <option value="UF">Unidad de Fomento (UF)</option>
+            </select>
+          </label>
+          <label class="field">Descuento global (%)<input id="q_gdisc" type="number" min="0" max="100" step="0.5" data-bind="quote.globalDiscount" data-type="number"></label>
+        </div>
+        <div class="grid2">
+          <label class="field">Tasa IVA (%)<input id="q_iva" type="number" min="0" max="100" data-bind="quote.ivaRate" data-type="number"></label>
+          <label class="check"><input type="checkbox" id="q_applyIva" data-bind="quote.applyIva"> Precios netos + IVA</label>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>Componentes y servicios <span class="count" id="itemCount"></span></summary>
+      <div class="panel__body">
+        <div class="quickadd">
+          <span class="quickadd__label">Agregar rápido</span>
+          <div class="quickadd__chips" id="quickAdd"></div>
+        </div>
+        <ol class="items" id="itemsEditor"></ol>
+        <div class="row">
+          <button type="button" class="btn btn--ghost btn--block" id="btnAddItem">+ Agregar línea</button>
+        </div>
+        <div class="row">
+          <label class="check"><input type="checkbox" id="o_tech" data-bind="options.showTechSummary"> Mostrar ficha técnica</label>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel">
+      <summary>Condiciones comerciales</summary>
+      <div class="panel__body">
+        <div class="grid2">
+          <label class="field">Forma de pago<input id="t_payment" data-bind="quote.payment"></label>
+          <label class="field">Plazo de entrega<input id="t_delivery" data-bind="quote.delivery"></label>
+        </div>
+        <label class="field">Garantía general<input id="t_warranty" data-bind="quote.warranty"></label>
+        <label class="field">Condiciones (una por línea)<textarea id="t_terms" rows="6" data-bind="terms"></textarea></label>
+        <label class="field">Observaciones para el cliente<textarea id="t_notes" rows="3" data-bind="notes"></textarea></label>
+      </div>
+    </details>
+
+    <details class="panel">
+      <summary>Datos de transferencia</summary>
+      <div class="panel__body">
+        <label class="check"><input type="checkbox" id="o_bank" data-bind="options.showBank"> Mostrar en el presupuesto</label>
+        <div class="grid2">
+          <label class="field">Banco<input id="b_bank" data-bind="bank.bank"></label>
+          <label class="field">Tipo de cuenta<input id="b_type" data-bind="bank.type"></label>
+        </div>
+        <div class="grid2">
+          <label class="field">N° de cuenta<input id="b_number" data-bind="bank.number"></label>
+          <label class="field">RUT titular<input id="b_rut" data-bind="bank.rut"></label>
+        </div>
+        <div class="grid2">
+          <label class="field">Titular<input id="b_holder" data-bind="bank.holder"></label>
+          <label class="field">Email comprobantes<input id="b_email" data-bind="bank.email"></label>
+        </div>
+      </div>
+    </details>
+
+    <details class="panel">
+      <summary>Firma y pie</summary>
+      <div class="panel__body">
+        <label class="check"><input type="checkbox" id="o_sign" data-bind="options.showSignature"> Incluir bloque de aceptación</label>
+        <label class="check"><input type="checkbox" id="o_words" data-bind="options.showWords"> Total en palabras</label>
+        <label class="field">Texto del pie<input id="o_footer" data-bind="options.footer"></label>
+      </div>
+    </details>
+
+    <p class="editor__hint">Todo se guarda automáticamente en este navegador. Usa <b>Exportar</b> para respaldar o mover presupuestos entre equipos.</p>
+  </aside>
+
+  <!-- ============ VISTA PREVIA ============ -->
+  <section class="preview" aria-label="Vista previa">
+    <article class="sheet" id="sheet"></article>
+  </section>
+</main>
+
+<dialog class="modal" id="listDialog">
+  <form method="dialog" class="modal__inner">
+    <header class="modal__head">
+      <h2>Mis presupuestos</h2>
+      <button class="btn btn--ghost btn--small" value="close">Cerrar</button>
+    </header>
+    <div id="savedList" class="saved"></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
