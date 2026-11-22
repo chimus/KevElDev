@@ -1,47 +1,33 @@
-# Presupuestos Técnicos
+# Kevin Bravo · KevElDev
 
-Generador de presupuestos técnicos para armado y venta de computadores. Es una página HTML: rellenas los datos en el panel izquierdo, ves la hoja A4 en vivo a la derecha y la imprimes o guardas como PDF.
+**CEO y cofundador de [NODARA](https://nodarasmart.cl)** · Agentes de IA, sistemas e infraestructura · Chile 🇨🇱
+*Ingeniero en Conectividad y Redes · Director de Operaciones en [Fidelya](https://fidelya.cl)*
 
-## Cómo usarlo
+Ayudo a las empresas a automatizar el trabajo repetitivo con agentes de IA que trabajan sobre sus propios sistemas, con seguridad por capas y una persona que aprueba lo sensible.
 
-1. Abre `index.html` en Chrome, Edge o Firefox (doble clic basta; no necesita servidor ni instalación).
-2. Completa **Tu empresa**: sube tu logo (arrastrar o clic), ajusta su tamaño y elige el color de marca.
-   Estos datos se recuerdan para todos los presupuestos siguientes.
-3. Completa **Cliente**, **Datos del presupuesto** y agrega componentes con los botones de *Agregar rápido*.
-4. Pulsa **Imprimir / PDF** y elige *Guardar como PDF* como destino.
-   En la ventana de impresión, desactiva "Encabezados y pies de página" para un resultado limpio.
+## En qué trabajo
 
-## Qué incluye el presupuesto
+- **NODARA:** automatización inteligente para empresas. Agentes en Copilot Studio o a la medida (Azure + Claude), integración de sistemas y capacitación.
+- **Fidelya:** sistemas financieros y tributarios para empresas chilenas.
+- **Infraestructura:** más de ocho años en redes corporativas, seguridad y administración de Microsoft 365 y Azure.
 
-- Logo y datos de la empresa (razón social, RUT, giro, dirección, contacto, web)
-- Datos del cliente (razón social, RUT, contacto, email, teléfono, dirección)
-- N° correlativo `COT-AAAA-0001`, fecha de emisión y fecha de validez calculada
-- Proyecto / referencia del equipo
-- Detalle por línea: categoría, marca y modelo, especificaciones, garantía, cantidad, precio unitario y descuento
-- Ficha técnica del equipo generada automáticamente a partir de los componentes
-- Subtotal, descuento global, IVA configurable (19 % por defecto) y total
-- Total en palabras ("Son: … pesos.")
-- Moneda CLP, USD o UF
-- Condiciones comerciales, forma de pago, plazo de entrega y garantía
-- Datos para transferencia bancaria
-- Bloque de firma y aceptación del cliente
+## Tecnologías
 
-## Guardar y respaldar
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-0078D4?logo=microsoftazure&logoColor=white)
+![Microsoft 365](https://img.shields.io/badge/Microsoft%20365-D83B01?logo=microsoftoffice&logoColor=white)
+![Claude](https://img.shields.io/badge/Claude-D97757?logo=anthropic&logoColor=white)
 
-- El borrador se guarda solo en el navegador (`localStorage`).
-- **Guardar** archiva el presupuesto actual; **Mis presupuestos** permite abrir, duplicar o eliminar.
-- **Exportar** descarga un `.json` con el presupuesto y el archivo completo; **Importar** lo restaura en otro equipo.
+**Certificaciones:** Cisco CCNA y CCNP.
 
-> Los datos viven en el navegador donde se crearon. Exporta un respaldo de vez en cuando.
+## Proyectos públicos
 
-## Publicarlo en línea (opcional)
+- [presupuestos-tecnicos](https://github.com/chimus/presupuestos-tecnicos): generador de presupuestos A4 para venta de equipos, sin servidor ni instalación.
 
-Activa GitHub Pages en *Settings → Pages* apuntando a la rama con estos archivos y tendrás la herramienta en una URL propia.
+> La mayor parte de mi trabajo vive en repositorios privados de clientes y empresas.
 
-## Archivos
+## Contacto
 
-| Archivo      | Contenido                                 |
-|--------------|-------------------------------------------|
-| `index.html` | Estructura del editor y la hoja           |
-| `styles.css` | Diseño de pantalla e impresión A4         |
-| `app.js`     | Estado, cálculos, render y almacenamiento |
+[nodarasmart.cl](https://nodarasmart.cl) · [LinkedIn](https://www.linkedin.com/in/kevin-bravo-alarc%C3%B3n-0b30b5126/)
